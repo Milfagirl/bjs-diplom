@@ -25,7 +25,7 @@ class ApiConnector {
    * (null если ошибки нет) и телом `data` в качестве второго параметра
    * @memberof ApiConnector
    */
-  static login({ login, password }, callback) {
+  static login({ login, password }, callback) {     //запрос на авторизацию пользователя
     const asyncPart = async () => {
       const body = JSON.stringify({ login, password });
 
