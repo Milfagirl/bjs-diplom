@@ -3,23 +3,21 @@
 
 const userform = new UserForm();
 
-userform.loginFormCallback = (data => {
+userform.loginFormCallback = (data => {           //авторизация
     ApiConnector.login(data, response => {
         if (response.success) {
             location.reload();
         } else {
-            userform.loginErrorMessageBox = response.data
-            console.log(userform.loginErrorMessageBox)
+            userform.setLoginErrorMessage(`Пользователь с логином ${data.login} и указанным паролем не найден`)
         }
     })
 })
-userform.registerFormCallback = (data => {
+userform.registerFormCallback = (data => {        //регистрация
     ApiConnector.register(data, response => {     
         if (response.success) {
             location.reload();
         } else {
-            userform.loginErrorMessageBox = response.data
-            console.log(userform.loginErrorMessageBox)
+            userform.setRegisterErrorMessage(`Проверьте введенные данные`)
         }
     })
 })
