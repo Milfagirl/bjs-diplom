@@ -24,17 +24,17 @@ const getRates = () => {
     })
 }
 
-// let intervalID = setInterval(getRates(), 60000)
-setInterval(getRates(), 60000)
+getRates()
+setInterval(getRates, 60000)
 
 const moneyManager = new MoneyManager()                     //Пополнение баланса
 moneyManager.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, (response) => {
         if (response.success) {
-            moneyManager.setMessage(response.success, 'Операция выполнена, обновите страницу')
-            ProfileWidget.showProfile(response.balance)
+            moneyManager.setMessage(false, 'Операция выполнена')
+            ProfileWidget.showProfile(response.data)
         } else {
-            moneyManager.setMessage(response.success, response.data)
+            moneyManager.setMessage(true, response.data)
         }
     })
 }
@@ -42,10 +42,10 @@ moneyManager.addMoneyCallback = (data) => {
 moneyManager.conversionMoneyCallback = (data) => {      //конвертация
     ApiConnector.convertMoney(data, response => {
         if (response.success) {
-            moneyManager.setMessage(response.success, 'Операция выполнена, обновите страницу')   //не работает
-            ProfileWidget.showProfile(response.balance)
+            moneyManager.setMessage(false, 'Операция выполнена')
+            ProfileWidget.showProfile(response.data)
         } else {
-            moneyManager.setMessage(response.success, response.data)
+            moneyManager.setMessage(true, response.data)
         }
     })
 
@@ -67,9 +67,9 @@ favoritesWidget.addUserCallback = (data) => {    //добавление поль
             favoritesWidget.clearTable()
             favoritesWidget.fillTable(response.data)
             moneyManager.updateUsersList(response.data)
-            moneyManager.setMessage(response.success, 'Операция выполнена, обновите страницу')
+            moneyManager.setMessage(false, 'Операция выполнена')
         } else {
-            moneyManager.setMessage(response.success, response.data)
+            moneyManager.setMessage(true, response.data)
         }
     })
 }
@@ -80,9 +80,9 @@ favoritesWidget.removeUserCallback = (data) => {      //Удаление из и
             favoritesWidget.clearTable()
             favoritesWidget.fillTable(response.data)
             moneyManager.updateUsersList(response.data)
-            moneyManager.setMessage(response.success, 'Операция выполнена, обновите страницу')
+            moneyManager.setMessage(false, 'Операция выполнена')
         } else {
-            moneyManager.setMessage(response.success, response.data)
+            moneyManager.setMessage(true, response.data)
         }
     })
 }
@@ -90,10 +90,10 @@ favoritesWidget.removeUserCallback = (data) => {      //Удаление из и
 moneyManager.sendMoneyCallback = data => {
     ApiConnector.transferMoney(data, response => {
         if (response.success) {
-            moneyManager.setMessage(response.success, 'Операция выполнена, обновите страницу')
-            ProfileWidget.showProfile(response.balance)
+            moneyManager.setMessage(false, 'Операция выполнена')
+            ProfileWidget.showProfile(response.data)
         } else {
-            moneyManager.setMessage(response.success, response.data)
+            moneyManager.setMessage(true, response.data)
         }
     })
 }
